@@ -70,4 +70,15 @@ test('E2E JPetstore', async ({ page }) => {
 
 // ProductDetailPage
 
+
+// CartPage
+
+
+
+// CheckoutPage
+
+
+
+// ErrorMessages
+
 });
