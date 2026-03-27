@@ -6,6 +6,7 @@ import LoginPage from '../pages/loginPage';
 import ValidateLoginSuccess from '../pages/ValidateLoginSuccess';
 import RegisterPage from '../pages/RegisterPage';
 import ValidateRegistration from '../pages/ValidateRegistration';
+import ProductSearchPage from '../pages/ProductSearchPage';
 
 test('E2E JPetstore', async ({ page }) => {
 
@@ -66,7 +67,18 @@ test('E2E JPetstore', async ({ page }) => {
 
 // ProductSearchPage
 
+    const productSearchPage = new ProductSearchPage(page);
 
+    await page.goto('https://petstore.octoperf.com/actions/Catalog.action?viewCategory=&categoryId=FISH');
+
+    const selectedProduct = await productSearchPage.openRandomFishProduct();
+    const selectedItem = await productSearchPage.openRandomItemFromProduct(selectedProduct);
+
+    console.log('Selected product:', selectedProduct.productName);
+    console.log('Selected item:', selectedItem.itemId);
+
+    await expect(page.locator('body')).toContainText(selectedItem.itemId);
+});
 
 // ProductDetailPage
 
