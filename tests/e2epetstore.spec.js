@@ -60,7 +60,6 @@ test('E2E JPetstore', async ({ page }) => {
 
   await validateRegistration.validateRegistration();
 
-
 // Login
 
 
@@ -78,13 +77,18 @@ test('E2E JPetstore', async ({ page }) => {
     console.log('Selected item:', selectedItem.itemId);
 
     await expect(page.locator('body')).toContainText(selectedItem.itemId);
-});
 
 // ProductDetailPage
 
 
 // CartPage
 
+  // Add Product to Cart
+  await page.locator('//a[contains(text(), "Add to Cart")]').click();
+
+  // Validate Shopping Cart Product  
+  await expect(page.locator(`//tr/td/a[contains(text(), "${selectedProduct.productName}")]`)).toContainText(selectedProduct.productName);
+  await expect(page.locator('//td[6]')).toHaveText(selectedItem.itemId);
 
 
 // CheckoutPage
